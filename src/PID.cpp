@@ -37,7 +37,7 @@ double PID::TotalError() {
    * TODO: Calculate and return the total error
    */
 
-  double value=(Kp*p_error + Ki*i_error + Kd*d_error);
+  double value=(-Kp*p_error + -Ki*i_error + -Kd*d_error);
 
   if (value>0.5){
     value=0.5;

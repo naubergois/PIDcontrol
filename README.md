@@ -9,16 +9,55 @@ Self-Driving Car Engineer Nanodegree Program
 
 ## Writeup
 
-Link of video:https://www.youtube.com/watch?v=PHMsiPDUpGk
+Link of video:https://www.youtube.com/watch?v=o_OiYE244Lo
 
 
+
+As the invention of PID control in 1910 (largely owning to Elmer Sperry’s ship autopilot), and the Ziegler–Nichols’ (Z-N) straightforward tuning methods in 1942, the prevalence of PID control has increased tremendously. With advances in digital technology, the science of automatic control now allows a extensive spectrum of control schemes choices. However, more than 90% of industrial controllers are still implemented based around PID algorithms, particularly at lowest levels (Martins, M. V. A., Watanabe, S., Totah, V., Botelho, A. P., Silva, M. C. da, Neres, P. F., Lima, R. de C. C., Rizzo, A. E., Pimenta, A., Brasil, A. C. dos S., Amaral, A. C., Soares, C. H. C., Santos, C. S. G., Ruta, C., Oliveira, C. D. de C., Serejo, C. S., Figueiredo, E., Passos, F. D., Noel, F., … Oliveira, V. M. de. (2017). PID Control System Analysis, Design.pdf. Ambiente Bentônico, Vol 3, 13(November), xi–xiv. https://doi.org/10.1016/b978-85-352-7263-5.50018-7).
+
+The PID controller is a feedback mechanism extensively applied in a diversity of applications. The controller calculates an “error” that is the difference between an evaluated process variable and the desired set-point value required by the application. PID controllers will attempt to decrease the process error by continuously adjusting the inputs. Although this is a powerful tool, the controllers must be correctly tuned if they are useful. Additionally, the weaknesses of a PID controller should be recognized in order to ensure that they are not used in applications that cannot make use of their unique advantages (Costa, G. J. (2010). Tuning a PID Controller. Power Transmission Engineering, april, 26–31).
+
+
+
+The “three-term” functionalities are highlighted by the following. 
+
+
+
+• The proportional term—providing an overall control action proportional to the error signal through the all-pass gain factor
+
+   The integral term—reducing steady-state errors through low-frequency compensation by an integrator.
+• The derivative term—improving transient response through high-frequency compensation by a differentiator
+
+![image-20200930194813895](image-20200930194813895.png) 
+
+
+
+(Martins, M. V. A., Watanabe, S., Totah, V., Botelho, A. P., Silva, M. C. da, Neres, P. F., Lima, R. de C. C., Rizzo, A. E., Pimenta, A., Brasil, A. C. dos S., Amaral, A. C., Soares, C. H. C., Santos, C. S. G., Ruta, C., Oliveira, C. D. de C., Serejo, C. S., Figueiredo, E., Passos, F. D., Noel, F., … Oliveira, V. M. de. (2017). PID Control System Analysis, Design.pdf. Ambiente Bentônico, Vol 3, 13(November), xi–xiv. https://doi.org/10.1016/b978-85-352-7263-5.50018-7).
+
+- P: affects readiness, can lead to oscillations
+- I: corrects the steady state error, can lead tp instability
+- D: dampens system born oscillations, but sensitive to input noise
+
+![image-20200930193707024](image-20200930193707024.png)
+
+ (https://www.slideshare.net/AbarajithanGnaneswar/pid-control-system-for-dummies)
+
+
+
+![image-20200930194252627](image-20200930194252627.png)
 
 ### Parameter Tuning
 
-I started to manual custom to the parameters available.  I began just with K_d  pid.Init(-0.1, -0.1, -1.5) pid.Init(-0.1, -0.1, -1)  and decreased before the automobile was oscillating inside the street.   I then tuned K_i  before the oscillation went down pid.Init(-0.1, -0.001, -1).  However, with these parameters that the automobile identification does not steer enough in corners.  I increased K_d  in precisely the same manner until the automobile would also steer enough in corners pid.Init(-0.1, -0.001, -1.5) pid.Init(-0.1, -0.001, -2).  This parameter sets the car drives the entire trail without leaving the lane.
+I started to manual custom to the parameters available.  I began just with K_d  pid.Init(0.1, 0.1, 1.5) pid.Init(0.1, 0.1, 1)  and decreased before the automobile was oscillating inside the street.   I then tuned K_i  before the oscillation went down pid.Init(0.1, 0.001, 1).  However, with these parameters that the automobile identification does not steer enough in corners.  I increased K_d  in precisely the same manner until the automobile would also steer enough in corners pid.Init(0.1, 0.001, 1.5) pid.Init(0.1, 0.001, 2).  To avoid the car  pop up onto ledges (Figure bellow),   I increase the readiness of your system (P) and (D) to maintain the stability. This parameter sets the car drives the entire trail without leaving the lane.
+
+![Screenshot from 2020-09-30 21-36-34.png](Screenshot_from_2020-09-30_21-36-34.png)
+
+
+
+
 
 The final values are:
-``K_p = -0.1 `` ``K_i = -0.001 `` ``K_d = -1.5 ``
+``K_p = 0.6 `` ``K_i = 0.001 `` ``K_d = 6 ``
 
 ---
 
